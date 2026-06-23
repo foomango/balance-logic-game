@@ -1,0 +1,846 @@
+/* ===========================================================================
+   Balance Buddy — kid-friendly styling.
+   Big tap targets, bright colors, rounded everything.
+   =========================================================================== */
+
+:root {
+  --bg: #f3f7ff;
+  --card: #ffffff;
+  --ink: #243b53;
+  --muted: #627d98;
+  --primary: #3066be;
+  --primary-dark: #1f4a8f;
+  --good: #2f9e44;
+  --bad: #e03131;
+  --accent: #f59f00;
+  --wood: #8a5a2b;
+  --wood-dark: #6b441f;
+  --shadow: 0 4px 0 rgba(0, 0, 0, 0.08), 0 6px 18px rgba(31, 74, 143, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Baloo 2', 'Comic Sans MS', 'Segoe UI', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.3em;
+}
+
+/* ---- Layout shells ------------------------------------------------------ */
+
+.screen {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 18px 18px 60px;
+}
+
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.screen-header h2 {
+  flex: 1;
+  text-align: center;
+  color: var(--primary-dark);
+}
+
+.screen-intro {
+  text-align: center;
+  color: var(--muted);
+  margin: 4px 0 18px;
+}
+
+/* ---- Buttons ------------------------------------------------------------ */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-back {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--primary-dark);
+}
+
+.btn-secondary {
+  background: #fff;
+  color: var(--primary-dark);
+  border: 2px solid var(--primary);
+}
+
+.btn-back {
+  background: #fff;
+  color: var(--muted);
+  border: 2px solid #d9e2ec;
+  padding: 8px 14px;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-back:active {
+  transform: translateY(2px);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===========================================================================
+   The Scale
+   =========================================================================== */
+
+.scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+}
+
+.scale-beam-area {
+  position: relative;
+  width: 17em;
+  /* Pans flow inside so the area grows to fit a tall (many-shape) dish instead
+     of overflowing into whatever sits below. The beam + stand are absolute
+     overlays positioned against this box. */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1em;
+  padding-top: 1em;
+  min-height: 7.5em;
+}
+
+/* The beam rotates around the center top of the post. */
+.scale-beam {
+  position: absolute;
+  top: 1.2em;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1);
+  z-index: 3;
+}
+
+.scale-beam-bar {
+  position: absolute;
+  top: -0.28em;
+  left: -7em;
+  width: 14em;
+  height: 0.56em;
+  background: linear-gradient(var(--wood), var(--wood-dark));
+  border-radius: 0.4em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Knobs at the beam ends. */
+.scale-beam-bar::before,
+.scale-beam-bar::after {
+  content: '';
+  position: absolute;
+  top: -0.18em;
+  width: 0.9em;
+  height: 0.9em;
+  background: var(--wood-dark);
+  border-radius: 50%;
+}
+.scale-beam-bar::before {
+  left: -0.2em;
+}
+.scale-beam-bar::after {
+  right: -0.2em;
+}
+
+/* Pans hang from near the beam ends. They flow side by side (so the area sizes
+   to their height) and translate vertically (set inline) to mimic hanging while
+   staying horizontal. */
+.scale-pan {
+  position: relative;
+  width: 6.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1);
+  z-index: 2;
+}
+
+.scale-pan-rope {
+  width: 2px;
+  height: 1.6em;
+  background: #9aa5b1;
+}
+
+.scale-pan-dish {
+  min-height: 3.4em;
+  width: 100%;
+  background: linear-gradient(#dbe4f0, #b9c7da);
+  border: 2px solid #9fb0c9;
+  border-radius: 0 0 2.6em 2.6em;
+  border-top: 0.4em solid #c7d3e3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 6px;
+  box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.scale-pan-dish.interactive {
+  cursor: pointer;
+  border-color: var(--primary);
+  border-style: dashed;
+}
+
+.scale-pan-dish.highlighted {
+  background: linear-gradient(#fff3bf, #ffe08a);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(245, 159, 0, 0.4);
+}
+
+.scale-pan-shapes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.scale-pan-hint {
+  font-size: 0.7em;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.scale-pan-shape-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+}
+
+/* Stand: the post rises to meet the beam's pivot point (the beam rotates
+   around top: 1.2em at the horizontal center of the beam-area). */
+.scale-stand {
+  position: absolute;
+  top: 1.2em;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.scale-post {
+  width: 0.7em;
+  height: 5.5em;
+  background: linear-gradient(90deg, var(--wood-dark), var(--wood), var(--wood-dark));
+  border-radius: 0.3em;
+}
+
+.scale-base {
+  width: 9em;
+  height: 0.9em;
+  background: var(--wood-dark);
+  border-radius: 0.5em;
+  margin-top: -0.2em;
+}
+
+.scale-status {
+  margin-top: 10px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 12px;
+}
+
+.scale-status.balanced {
+  color: var(--good);
+  background: #e6fcf0;
+}
+
+.scale-status.tipped {
+  color: var(--muted);
+  background: #eef2f7;
+}
+
+/* ---- Shape icons -------------------------------------------------------- */
+
+.shape-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shape-weight {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  width: 1.4em;
+  height: 1.4em;
+  font-size: 0.7em;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===========================================================================
+   Home
+   =========================================================================== */
+
+.home-header {
+  text-align: center;
+  padding: 10px 0 18px;
+}
+
+.home-header h1 {
+  font-size: 2.4rem;
+  color: var(--primary-dark);
+}
+
+.tagline {
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+.progress-summary {
+  display: inline-block;
+  background: #fff;
+  padding: 8px 18px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.home-section {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+}
+
+.home-section h3 {
+  color: var(--primary-dark);
+}
+
+.home-section > p {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.big-card {
+  width: 100%;
+  background: linear-gradient(135deg, #e7f0ff, #d3e3ff);
+  border: 3px solid var(--primary);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.big-card-label {
+  font-weight: 800;
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+}
+
+.puzzle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.puzzle-card {
+  flex: 1 1 180px;
+  background: #f8fbff;
+  border: 2px solid #d9e2ec;
+  border-radius: 16px;
+  padding: 14px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  transition: transform 0.08s ease, border-color 0.15s ease;
+}
+
+.puzzle-card:hover {
+  border-color: var(--primary);
+}
+
+.puzzle-card:active {
+  transform: translateY(2px);
+}
+
+.puzzle-card-num {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--primary);
+  color: #fff;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.puzzle-card-stars {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* ===========================================================================
+   Puzzle view
+   =========================================================================== */
+
+.solved-badge {
+  font-size: 1.2rem;
+}
+
+.given-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  background: #fff7e6;
+  border: 2px dashed var(--accent);
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.given-rule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.rule-label {
+  font-weight: 800;
+  color: #b07700;
+}
+
+.puzzle-question {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 8px 0 16px;
+}
+
+.option-card {
+  background: #fff;
+  border: 3px solid #d9e2ec;
+  border-radius: 18px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  transition: transform 0.08s ease, border-color 0.15s ease;
+}
+
+.option-card:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+
+.option-card:active:not(:disabled) {
+  transform: translateY(2px);
+}
+
+.option-letter {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.option-card.correct {
+  border-color: var(--good);
+  background: #ebfbee;
+}
+
+.option-card.wrong {
+  border-color: var(--bad);
+  background: #fff0f0;
+}
+
+.option-card.reveal {
+  border-color: var(--good);
+  border-style: dashed;
+}
+
+.feedback {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 10px;
+  border-radius: 14px;
+  margin-bottom: 14px;
+}
+
+.feedback.good {
+  color: var(--good);
+  background: #ebfbee;
+}
+
+.feedback.bad {
+  color: var(--bad);
+  background: #fff0f0;
+}
+
+.puzzle-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* ===========================================================================
+   Sandbox
+   =========================================================================== */
+
+.peek-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.sandbox-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 18px 0;
+  flex-wrap: wrap;
+}
+
+.sandbox-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.shape-tray {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+.shape-tray-label {
+  text-align: center;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.shape-tray-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.tray-shape {
+  background: #f8fbff;
+  border: 3px solid #d9e2ec;
+  border-radius: 16px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.08s ease, border-color 0.15s ease;
+}
+
+.tray-shape:active {
+  transform: translateY(2px);
+}
+
+.tray-shape.selected {
+  border-color: var(--accent);
+  background: #fff7e6;
+  box-shadow: 0 0 0 3px rgba(245, 159, 0, 0.3);
+}
+
+.tray-shape-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* ---- Weight controls ---------------------------------------------------- */
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.weight-controls {
+  background: var(--card);
+  border: 2px dashed var(--primary);
+  border-radius: 18px;
+  padding: 14px;
+  margin: 0 0 18px;
+  box-shadow: var(--shadow);
+}
+
+.weight-controls-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.weight-controls-label {
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.weight-controls-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.weight-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #f8fbff;
+  border: 2px solid #d9e2ec;
+  border-radius: 16px;
+  padding: 10px 12px;
+  min-width: 7em;
+}
+
+.weight-control-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stepper-btn {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepper-btn:active {
+  transform: translateY(2px);
+}
+
+.stepper-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stepper-value {
+  width: 2.6em;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  border: 2px solid #d9e2ec;
+  border-radius: 10px;
+  padding: 4px 0;
+  -moz-appearance: textfield;
+}
+
+.stepper-value::-webkit-outer-spin-button,
+.stepper-value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ===========================================================================
+   Explain panel
+   =========================================================================== */
+
+.explain-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(36, 59, 83, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 50;
+}
+
+.explain-panel {
+  background: #fff;
+  border-radius: 22px;
+  padding: 20px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+  animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.explain-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.explain-title {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+}
+
+.explain-close {
+  background: #eef2f7;
+  border: none;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.explain-step-count {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 4px 0 12px;
+}
+
+.explain-body {
+  background: #f8fbff;
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 9em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.explain-body.is-fact {
+  background: #fff7e6;
+}
+
+.explain-fact-tag {
+  align-self: flex-start;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.explain-caption {
+  text-align: center;
+  font-weight: 600;
+  margin: 0;
+}
+
+.explain-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+/* ---- Small screens ------------------------------------------------------ */
+
+@media (max-width: 520px) {
+  body {
+    font-size: 16px;
+  }
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
