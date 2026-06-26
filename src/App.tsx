@@ -10,6 +10,8 @@ import type { Puzzle } from './types'
 
 type Route = { name: 'home' } | { name: 'sandbox'; initial?: SandboxInit } | { name: 'puzzle'; id: string }
 
+declare function gtag(...args: unknown[]): void
+
 /** Tiny hand-rolled router — three screens, no dependency needed. */
 export default function App() {
   const [route, setRoute] = useState<Route>({ name: 'home' })
@@ -23,6 +25,16 @@ export default function App() {
       name: 'sandbox',
       initial: { left: [...puzzle.given.left], right: [...puzzle.given.right], weights },
     })
+  }
+
+  const handlePlayPuzzle = (id: string) => {
+    if (typeof gtag === 'function') gtag('event', 'puzzle_start', { puzzle_id: id })
+    setRoute({ name: 'puzzle', id })
+  }
+
+  const handleSolve = (id: string, stars: number) => {
+    if (typeof gtag === 'function') gtag('event', 'puzzle_solve', { puzzle_id: id, stars })
+    recordSolve(id, stars)
   }
 
   if (route.name === 'sandbox') {
@@ -42,7 +54,7 @@ export default function App() {
         key={puzzle.id}
         puzzle={puzzle}
         earnedStars={starsFor(puzzle.id)}
-        onSolve={recordSolve}
+        onSolve={handleSolve}
         onBack={goHome}
         onNext={next ? () => setRoute({ name: 'puzzle', id: next.id }) : undefined}
         onTrySandbox={() => handleTrySandbox(puzzle)}
@@ -56,7 +68,7 @@ export default function App() {
       solvedCount={solvedCount}
       totalPuzzles={ALL_PUZZLES.length}
       onPlaySandbox={() => setRoute({ name: 'sandbox' })}
-      onPlayPuzzle={(id) => setRoute({ name: 'puzzle', id })}
+      onPlayPuzzle={handlePlayPuzzle}
     />
   )
 }
