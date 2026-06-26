@@ -7,8 +7,15 @@ import { DEFAULT_WEIGHTS, type WeightMap } from '../data/shapes'
 
 type Side = 'left' | 'right'
 
+export interface SandboxInit {
+  left: Group
+  right: Group
+  weights: Record<string, number>
+}
+
 interface Props {
   onBack: () => void
+  initial?: SandboxInit
 }
 
 /**
@@ -16,12 +23,12 @@ interface Props {
  * toward the heavier side, sitting level when the two groups weigh the same.
  * Supports drag-and-drop and tap-to-place.
  */
-export default function Sandbox({ onBack }: Props) {
-  const [left, setLeft] = useState<Group>([])
-  const [right, setRight] = useState<Group>([])
+export default function Sandbox({ onBack, initial }: Props) {
+  const [left, setLeft] = useState<Group>(initial?.left ?? [])
+  const [right, setRight] = useState<Group>(initial?.right ?? [])
   const [selected, setSelected] = useState<ShapeId | null>(null)
-  const [peek, setPeek] = useState(false)
-  const [weights, setWeights] = useState<WeightMap>({ ...DEFAULT_WEIGHTS })
+  const [peek, setPeek] = useState(!!initial)
+  const [weights, setWeights] = useState<WeightMap>(initial?.weights ?? { ...DEFAULT_WEIGHTS })
   const [showWeightControls, setShowWeightControls] = useState(false)
 
   const setter = (side: Side) => (side === 'left' ? setLeft : setRight)

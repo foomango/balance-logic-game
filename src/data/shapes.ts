@@ -40,3 +40,33 @@ export function shapeWeight(id: ShapeId, weights?: WeightMap): number {
 export function groupWeight(group: ShapeId[], weights?: WeightMap): number {
   return group.reduce((sum, id) => sum + shapeWeight(id, weights), 0)
 }
+
+/**
+ * Given a balanced scale rule, compute a weight map that makes it physically
+ * balance. Shapes not in the rule keep their default weights.
+ */
+export function computeBalancedWeights(scale: { left: ShapeId[]; right: ShapeId[] }): Record<ShapeId, number> {
+  const weights = { ...DEFAULT_WEIGHTS }
+
+  // Net coefficient per shape: leftCount − rightCount.
+  const net: Partial<Record<ShapeId, number>> = {}
+  for (const s of scale.left) net[s] = (net[s] ?? 0) + 1
+  for (const s of scale.right) net[s] = (net[s] ?? 0) - 1
+
+  let posSum = 0
+  let negSum = 0
+  const posShapes: ShapeId[] = []
+  const negShapes: ShapeId[] = []
+
+  for (const [id, coeff] of Object.entries(net) as [ShapeId, number][]) {
+    if (coeff > 0) { posSum += coeff; posShapes.push(id) }
+    else if (coeff < 0) { negSum += -coeff; negShapes.push(id) }
+  }
+
+  // Assign: positive-side shapes get weight = negSum, negative-side get posSum.
+  // This guarantees Σ posCoeff * negSum === Σ |negCoeff| * posSum.
+  for (const s of posShapes) weights[s] = negSum
+  for (const s of negShapes) weights[s] = posSum
+
+  return weights
+}

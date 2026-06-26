@@ -11,6 +11,8 @@ interface Props {
   onBack: () => void
   /** Move to the next puzzle, if there is one. */
   onNext?: () => void
+  /** Jump to sandbox with the puzzle's shapes pre-loaded. */
+  onTrySandbox?: () => void
 }
 
 /**
@@ -21,7 +23,7 @@ interface Props {
  * Stars: 3 if solved on the first try with no peeking, 2 with one wrong try
  * or after peeking, 1 otherwise.
  */
-export default function PuzzleView({ puzzle, earnedStars, onSolve, onBack, onNext }: Props) {
+export default function PuzzleView({ puzzle, earnedStars, onSolve, onBack, onNext, onTrySandbox }: Props) {
   const [picked, setPicked] = useState<string | null>(null)
   const [wrongTries, setWrongTries] = useState(0)
   const [peeked, setPeeked] = useState(false)
@@ -123,6 +125,11 @@ export default function PuzzleView({ puzzle, earnedStars, onSolve, onBack, onNex
         >
           💡 Show me why
         </button>
+        {onTrySandbox && (
+          <button className="btn-secondary" type="button" onClick={onTrySandbox}>
+            🧪 Try in Sandbox
+          </button>
+        )}
         {solved && onNext && (
           <button className="btn-primary" type="button" onClick={onNext}>
             Next puzzle →

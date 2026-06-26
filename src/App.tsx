@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import Home from './components/Home'
 import Sandbox from './components/Sandbox'
+import type { SandboxInit } from './components/Sandbox'
 import PuzzleView from './components/PuzzleView'
 import { useProgress } from './hooks/useProgress'
 import { ALL_PUZZLES, findPuzzle } from './data/puzzles'
+import { computeBalancedWeights } from './data/shapes'
+import type { Puzzle } from './types'
 
-type Route = { name: 'home' } | { name: 'sandbox' } | { name: 'puzzle'; id: string }
+type Route = { name: 'home' } | { name: 'sandbox'; initial?: SandboxInit } | { name: 'puzzle'; id: string }
 
 /** Tiny hand-rolled router — three screens, no dependency needed. */
 export default function App() {
@@ -14,8 +17,16 @@ export default function App() {
 
   const goHome = () => setRoute({ name: 'home' })
 
+  const handleTrySandbox = (puzzle: Puzzle) => {
+    const weights = computeBalancedWeights(puzzle.given)
+    setRoute({
+      name: 'sandbox',
+      initial: { left: [...puzzle.given.left], right: [...puzzle.given.right], weights },
+    })
+  }
+
   if (route.name === 'sandbox') {
-    return <Sandbox onBack={goHome} />
+    return <Sandbox onBack={goHome} initial={route.initial} />
   }
 
   if (route.name === 'puzzle') {
@@ -34,6 +45,7 @@ export default function App() {
         onSolve={recordSolve}
         onBack={goHome}
         onNext={next ? () => setRoute({ name: 'puzzle', id: next.id }) : undefined}
+        onTrySandbox={() => handleTrySandbox(puzzle)}
       />
     )
   }
