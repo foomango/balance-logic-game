@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------
 
 /** Every shape the game knows about. Matches the AAP test palette. */
-export type ShapeId = 'cylinder' | 'triangle' | 'square' | 'circle'
+export type ShapeId = 'cylinder' | 'triangle' | 'square' | 'circle' | 'rectangle' | 'hexagon'
 
 export interface Shape {
   id: ShapeId

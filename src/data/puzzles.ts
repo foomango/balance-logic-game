@@ -156,11 +156,52 @@ const quizExample2: QuizPuzzle = {
   ],
 }
 
+// Quiz — hexagon + rectangle deduction: subtract a circle from both sides.
+const quizHexRect: QuizPuzzle = {
+  id: 'q-hex-rect',
+  kind: 'quiz',
+  prompt:
+    'The top scale is balanced. Which group below is correct?',
+  given: {
+    left: ['hexagon', 'rectangle', 'circle', 'circle', 'triangle'],
+    right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle', 'circle', 'circle'],
+  },
+  options: [
+    { id: 'A', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['rectangle', 'triangle', 'triangle'] }, isCorrect: false },
+    {
+      id: 'B',
+      scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle'] },
+      isCorrect: true,
+    },
+    { id: 'C', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['circle', 'circle', 'triangle', 'triangle', 'triangle'] }, isCorrect: false },
+    { id: 'D', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['hexagon', 'triangle', 'circle', 'circle', 'circle'] }, isCorrect: false },
+    { id: 'E', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['circle', 'circle', 'circle', 'circle', 'circle', 'circle'] }, isCorrect: false },
+  ],
+  explanation: [
+    {
+      caption: 'We know hexagon + rectangle + 2 circles + triangle balances 3 triangles + 5 circles.',
+      scale: {
+        left: ['hexagon', 'rectangle', 'circle', 'circle', 'triangle'],
+        right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle', 'circle', 'circle'],
+      },
+      isFact: true,
+    },
+    {
+      caption: 'Remove 2 circles from BOTH sides. Now hexagon + rectangle + triangle = 3 triangles + 3 circles.',
+      scale: {
+        left: ['hexagon', 'rectangle', 'triangle'],
+        right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle'],
+      },
+    },
+    { caption: 'The answer is B: 3 triangles and 3 circles!' },
+  ],
+}
+
 // ---------------------------------------------------------------------------
 
 export const DISCOVERY_PUZZLES: DiscoveryPuzzle[] = [discovery1, discovery2]
 
-export const QUIZ_PUZZLES: QuizPuzzle[] = [quizDouble, quizExample1, quizExample2]
+export const QUIZ_PUZZLES: QuizPuzzle[] = [quizDouble, quizExample1, quizExample2, quizHexRect]
 
 /** Everything, in suggested play order. */
 export const ALL_PUZZLES: Puzzle[] = [...DISCOVERY_PUZZLES, ...QUIZ_PUZZLES]

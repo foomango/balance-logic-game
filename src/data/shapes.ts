@@ -12,9 +12,11 @@ export const SHAPES: Record<ShapeId, Shape> = {
   triangle: { id: 'triangle', name: 'Cone', color: '#3f9b46', weight: 3 },
   square: { id: 'square', name: 'Block', color: '#e0a020', weight: 1 },
   circle: { id: 'circle', name: 'Marble', color: '#3066be', weight: 4 },
+  rectangle: { id: 'rectangle', name: 'Rectangle', color: '#e6c619', weight: 5 },
+  hexagon: { id: 'hexagon', name: 'Hexagon', color: '#c0392b', weight: 6 },
 }
 
-export const ALL_SHAPE_IDS: ShapeId[] = ['cylinder', 'triangle', 'square', 'circle']
+export const ALL_SHAPE_IDS: ShapeId[] = ['cylinder', 'triangle', 'square', 'circle', 'rectangle', 'hexagon']
 
 /** Per-shape weight overrides (Sandbox lets the child set these). */
 export type WeightMap = Partial<Record<ShapeId, number>>
@@ -25,6 +27,8 @@ export const DEFAULT_WEIGHTS: Record<ShapeId, number> = {
   triangle: SHAPES.triangle.weight,
   square: SHAPES.square.weight,
   circle: SHAPES.circle.weight,
+  rectangle: SHAPES.rectangle.weight,
+  hexagon: SHAPES.hexagon.weight,
 }
 
 /** Weight of one shape, honoring an optional override map. */

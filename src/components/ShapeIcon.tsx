@@ -44,6 +44,12 @@ export default function ShapeIcon({ shape, size = 44, showWeight = false, weight
         {shape === 'circle' && (
           <circle cx="50" cy="50" r="32" fill={color} stroke={darker} strokeWidth="2" />
         )}
+        {shape === 'rectangle' && (
+          <rect x="30" y="15" width="40" height="70" rx="6" fill={color} stroke={darker} strokeWidth="2" />
+        )}
+        {shape === 'hexagon' && (
+          <polygon points="50,14 82,32 82,68 50,86 18,68 18,32" fill={color} stroke={darker} strokeWidth="2" />
+        )}
       </svg>
       {showWeight && <span className="shape-weight">{shownWeight}</span>}
     </span>
