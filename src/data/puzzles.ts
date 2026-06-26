@@ -1,8 +1,7 @@
 import type { DiscoveryPuzzle, QuizPuzzle, Puzzle } from '../types'
 
 // ---------------------------------------------------------------------------
-// Discovery levels — gentle, guided bridge from "feel the scale" to "reason
-// about equal groups". Each gives a balanced rule and asks one question.
+// Discovery levels
 // ---------------------------------------------------------------------------
 
 const discovery1: DiscoveryPuzzle = {
@@ -18,11 +17,7 @@ const discovery1: DiscoveryPuzzle = {
     { id: 'D', scale: { left: ['triangle', 'triangle'], right: [] }, isCorrect: false },
   ],
   explanation: [
-    {
-      caption: 'The scale is balanced, so 1 cone weighs exactly the same as 2 cans.',
-      scale: { left: ['triangle'], right: ['cylinder', 'cylinder'] },
-      isFact: true,
-    },
+    { caption: 'The scale is balanced, so 1 cone weighs exactly the same as 2 cans.', scale: { left: ['triangle'], right: ['cylinder', 'cylinder'] }, isFact: true },
     { caption: 'So the group that matches 1 cone is 2 cans!' },
   ],
 }
@@ -40,498 +35,82 @@ const discovery2: DiscoveryPuzzle = {
     { id: 'D', scale: { left: ['circle', 'circle'], right: [] }, isCorrect: false },
   ],
   explanation: [
-    {
-      caption: 'The scale is balanced, so 1 marble weighs the same as 1 block + 1 can.',
-      scale: { left: ['circle'], right: ['square', 'cylinder'] },
-      isFact: true,
-    },
+    { caption: 'The scale is balanced, so 1 marble weighs the same as 1 block + 1 can.', scale: { left: ['circle'], right: ['square', 'cylinder'] }, isFact: true },
     { caption: 'So the matching group is 1 block and 1 can.' },
   ],
 }
 
 // ---------------------------------------------------------------------------
-// Quiz levels — the multiple-choice format from the AAP test images.
+// 50 Quiz puzzles — sorted easy → hard
 // ---------------------------------------------------------------------------
 
-// Warm-up: "do the same thing to both sides" (doubling).
-const quizDouble: QuizPuzzle = {
-  id: 'q-double',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['cylinder', 'cylinder'], right: ['triangle'] },
-  options: [
-    {
-      id: 'A',
-      scale: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] },
-      isCorrect: true,
-    },
-    { id: 'B', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle'] }, isCorrect: false },
-    { id: 'C', scale: { left: ['cylinder'], right: ['triangle'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 2 cans weigh the same as 1 cone.',
-      scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] },
-      isFact: true,
-    },
-    {
-      caption: 'If we DOUBLE both sides, the scale still balances.',
-      scale: {
-        left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'],
-        right: ['triangle', 'triangle'],
-      },
-    },
-    { caption: '4 cans = 2 cones. That is answer A!' },
-  ],
-}
+// ===== EASY (q01–q17) =====
+const q01: QuizPuzzle = { id: 'q01', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['square'], right: ['square'] }, options: [ { id: 'A', scale: { left: ['square', 'square'], right: ['square', 'square'] }, isCorrect: true }, { id: 'B', scale: { left: ['square', 'square'], right: ['square'] }, isCorrect: false }, { id: 'C', scale: { left: ['square'], right: ['square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['square', 'square', 'square'], right: ['square'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 block = 1 block.', scale: { left: ['square'], right: ['square'] }, isFact: true }, { caption: 'DOUBLE both sides: 2 blocks = 2 blocks.', scale: { left: ['square', 'square'], right: ['square', 'square'] } }, { caption: 'The answer is A!' } ] }
+const q02: QuizPuzzle = { id: 'q02', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['cylinder'], right: ['cylinder'] }, options: [ { id: 'A', scale: { left: ['cylinder'], right: ['cylinder', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['cylinder', 'cylinder'], right: ['cylinder'] }, isCorrect: false }, { id: 'C', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'D', scale: { left: ['cylinder', 'cylinder'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 can = 1 can.', scale: { left: ['cylinder'], right: ['cylinder'] }, isFact: true }, { caption: 'TRIPLE both sides: 3 cans = 3 cans.', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is C!' } ] }
+const q03: QuizPuzzle = { id: 'q03', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['cylinder', 'cylinder'], right: ['triangle'] }, options: [ { id: 'A', scale: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: true }, { id: 'B', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'We know 2 cans = 1 cone.', scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] }, isFact: true }, { caption: 'DOUBLE both sides: 4 cans = 2 cones.', scale: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] } }, { caption: 'The answer is A!' } ] }
+const q04: QuizPuzzle = { id: 'q04', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, options: [ { id: 'A', scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] }, isCorrect: true }, { id: 'B', scale: { left: ['cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'We know 4 cans = 2 cones.', scale: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isFact: true }, { caption: 'HALVE both sides: 2 cans = 1 cone.', scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] } }, { caption: 'The answer is A!' } ] }
+const q05: QuizPuzzle = { id: 'q05', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle'], right: ['square', 'square', 'square'] }, options: [ { id: 'A', scale: { left: ['circle', 'circle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle'], right: ['square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['circle', 'circle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: true }, { id: 'D', scale: { left: ['circle', 'circle', 'circle'], right: ['square', 'square', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 marble = 3 blocks.', scale: { left: ['circle'], right: ['square', 'square', 'square'] }, isFact: true }, { caption: 'DOUBLE both sides: 2 marbles = 6 blocks.', scale: { left: ['circle', 'circle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] } }, { caption: 'The answer is C!' } ] }
+const q06: QuizPuzzle = { id: 'q06', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['square', 'square', 'square', 'square', 'square', 'square'], right: ['cylinder', 'cylinder'] }, options: [ { id: 'A', scale: { left: ['square', 'square'], right: ['cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['square', 'square', 'square'], right: ['cylinder'] }, isCorrect: true }, { id: 'C', scale: { left: ['square', 'square', 'square', 'square'], right: ['cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['square', 'square', 'square'], right: ['cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'We know 6 blocks = 2 cans.', scale: { left: ['square', 'square', 'square', 'square', 'square', 'square'], right: ['cylinder', 'cylinder'] }, isFact: true }, { caption: 'HALVE both sides: 3 blocks = 1 can.', scale: { left: ['square', 'square', 'square'], right: ['cylinder'] } }, { caption: 'The answer is B!' } ] }
+const q07: QuizPuzzle = { id: 'q07', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['triangle'], right: ['cylinder', 'cylinder'] }, options: [ { id: 'A', scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'square'] }, isCorrect: true }, { id: 'C', scale: { left: ['triangle', 'triangle'], right: ['cylinder', 'cylinder', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['triangle', 'square'], right: ['cylinder', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 cone = 2 cans.', scale: { left: ['triangle'], right: ['cylinder', 'cylinder'] }, isFact: true }, { caption: 'ADD the same thing (1 block) to BOTH sides — still balances.', scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'square'] } }, { caption: 'The answer is B!' } ] }
+const q08: QuizPuzzle = { id: 'q08', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['triangle'], right: ['square', 'square'] }, options: [ { id: 'A', scale: { left: ['triangle', 'triangle', 'triangle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: true }, { id: 'B', scale: { left: ['triangle', 'triangle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['triangle', 'triangle', 'triangle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['triangle', 'triangle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 cone = 2 blocks.', scale: { left: ['triangle'], right: ['square', 'square'] }, isFact: true }, { caption: 'TRIPLE both sides: 3 cones = 6 blocks.', scale: { left: ['triangle', 'triangle', 'triangle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] } }, { caption: 'The answer is A!' } ] }
+const q09: QuizPuzzle = { id: 'q09', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['rectangle'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'circle'], right: ['rectangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon'], right: ['rectangle', 'circle'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon', 'circle'], right: ['rectangle', 'circle'] }, isCorrect: true }, { id: 'D', scale: { left: ['hexagon', 'hexagon'], right: ['rectangle'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 hexagon = 1 rectangle.', scale: { left: ['hexagon'], right: ['rectangle'] }, isFact: true }, { caption: 'ADD 1 marble to BOTH sides — still balances.', scale: { left: ['hexagon', 'circle'], right: ['rectangle', 'circle'] } }, { caption: 'The answer is C!' } ] }
+const q10: QuizPuzzle = { id: 'q10', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle', 'square'], right: ['triangle'] }, options: [ { id: 'A', scale: { left: ['circle', 'circle', 'square'], right: ['triangle', 'triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle', 'square', 'square'], right: ['triangle', 'triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['circle', 'circle', 'square', 'square'], right: ['triangle', 'triangle'] }, isCorrect: true }, { id: 'D', scale: { left: ['circle', 'circle', 'square', 'square'], right: ['triangle'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 marble + 1 block = 1 cone.', scale: { left: ['circle', 'square'], right: ['triangle'] }, isFact: true }, { caption: 'DOUBLE both sides: 2 marbles + 2 blocks = 2 cones.', scale: { left: ['circle', 'circle', 'square', 'square'], right: ['triangle', 'triangle'] } }, { caption: 'The answer is C!' } ] }
+const q11: QuizPuzzle = { id: 'q11', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle', 'triangle', 'triangle'] }, options: [ { id: 'A', scale: { left: ['rectangle'], right: ['triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['rectangle'], right: ['triangle', 'triangle'] }, isCorrect: true }, { id: 'C', scale: { left: ['rectangle'], right: ['triangle', 'triangle', 'triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'We know 2 rectangles = 4 cones.', scale: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle', 'triangle', 'triangle'] }, isFact: true }, { caption: 'HALVE both sides: 1 rectangle = 2 cones.', scale: { left: ['rectangle'], right: ['triangle', 'triangle'] } }, { caption: 'The answer is B!' } ] }
+const q12: QuizPuzzle = { id: 'q12', kind: 'quiz', prompt: 'Choose the answer that shows two groups that MUST be equal weight.', given: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, options: [ { id: 'A', scale: { left: ['cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['cylinder', 'triangle'], right: ['triangle', 'cylinder'] }, isCorrect: true }, { id: 'D', scale: { left: ['triangle'], right: ['cylinder'] }, isCorrect: false } ], explanation: [ { caption: '3 cans = 2 cones. But that does NOT tell us what one can or one cone weighs alone.', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isFact: true }, { caption: 'A shape always equals itself! 1 can + 1 cone on each side must be equal.', scale: { left: ['cylinder', 'triangle'], right: ['triangle', 'cylinder'] } }, { caption: 'The answer is C.' } ] }
+const q13: QuizPuzzle = { id: 'q13', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'hexagon'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon', 'hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 hexagon = 3 cans.', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder'] }, isFact: true }, { caption: 'DOUBLE both sides: 2 hexagons = 6 cans.', scale: { left: ['hexagon', 'hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is B!' } ] }
+const q14: QuizPuzzle = { id: 'q14', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['square'], right: ['cylinder'] }, options: [ { id: 'A', scale: { left: ['square', 'hexagon'], right: ['cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['square'], right: ['cylinder', 'hexagon'] }, isCorrect: false }, { id: 'C', scale: { left: ['square', 'hexagon'], right: ['cylinder', 'hexagon'] }, isCorrect: true }, { id: 'D', scale: { left: ['square', 'square'], right: ['cylinder', 'hexagon'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 block = 1 can.', scale: { left: ['square'], right: ['cylinder'] }, isFact: true }, { caption: 'ADD 1 hexagon to BOTH sides — still balances.', scale: { left: ['square', 'hexagon'], right: ['cylinder', 'hexagon'] } }, { caption: 'The answer is C!' } ] }
+const q15: QuizPuzzle = { id: 'q15', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['square'], right: ['cylinder'] }, options: [ { id: 'A', scale: { left: ['square', 'square', 'square', 'square'], right: ['cylinder', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['square', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'C', scale: { left: ['square', 'square', 'square'], right: ['cylinder', 'cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['square', 'square', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: true } ], explanation: [ { caption: 'We know 1 block = 1 can.', scale: { left: ['square'], right: ['cylinder'] }, isFact: true }, { caption: 'Multiply BOTH sides by 4: 4 blocks = 4 cans.', scale: { left: ['square', 'square', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is D!' } ] }
+const q16: QuizPuzzle = { id: 'q16', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['triangle', 'triangle', 'triangle', 'triangle', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] }, options: [ { id: 'A', scale: { left: ['triangle', 'triangle', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'B', scale: { left: ['triangle', 'triangle', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'C', scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['triangle', 'triangle', 'square'], right: ['cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'We know 4 cones + 2 blocks = 6 cans.', scale: { left: ['triangle', 'triangle', 'triangle', 'triangle', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isFact: true }, { caption: 'HALVE both sides: 2 cones + 1 block = 3 cans.', scale: { left: ['triangle', 'triangle', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is A!' } ] }
+const q17: QuizPuzzle = { id: 'q17', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['triangle', 'cylinder'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'circle'], right: ['triangle', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'circle'], right: ['triangle', 'cylinder', 'circle'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon'], right: ['triangle', 'cylinder', 'circle'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'circle', 'circle'], right: ['triangle', 'cylinder', 'circle'] }, isCorrect: false } ], explanation: [ { caption: 'We know 1 hexagon = 1 cone + 1 can.', scale: { left: ['hexagon'], right: ['triangle', 'cylinder'] }, isFact: true }, { caption: 'ADD 1 marble to BOTH sides — still balances.', scale: { left: ['hexagon', 'circle'], right: ['triangle', 'cylinder', 'circle'] } }, { caption: 'The answer is B!' } ] }
 
-// Example image #1 — "we cannot know each shape, so only a shape = itself is sure".
-const quizExample1: QuizPuzzle = {
-  id: 'q-ex1',
-  kind: 'quiz',
-  prompt:
-    'Choose the answer that shows two groups of shapes that, when placed on the scale, would also be of equal weight.',
-  given: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] },
-  options: [
-    { id: 'A', scale: { left: ['cylinder'], right: ['triangle'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: false },
-    {
-      id: 'C',
-      scale: { left: ['cylinder', 'triangle'], right: ['triangle', 'cylinder'] },
-      isCorrect: true,
-    },
-    { id: 'D', scale: { left: ['triangle'], right: ['cylinder'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We are told 3 cans balance 2 cones. But that does NOT tell us what one can or one cone weighs by itself.',
-      scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] },
-      isFact: true,
-    },
-    {
-      caption: 'So we cannot trust answers that compare cans to cones in a new way — we just do not know.',
-    },
-    {
-      caption: 'But a shape always equals itself! 1 can + 1 cone on each side must be equal, no matter the weights.',
-      scale: { left: ['cylinder', 'triangle'], right: ['triangle', 'cylinder'] },
-    },
-    { caption: 'The sure answer is C.' },
-  ],
-}
+// ===== MEDIUM (q18–q35) =====
+const q18: QuizPuzzle = { id: 'q18', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle', 'circle', 'square'], right: ['rectangle', 'square'] }, options: [ { id: 'A', scale: { left: ['circle'], right: ['rectangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle', 'circle', 'square'], right: ['rectangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['circle', 'circle'], right: ['rectangle'] }, isCorrect: true }, { id: 'D', scale: { left: ['circle', 'square'], right: ['rectangle'] }, isCorrect: false } ], explanation: [ { caption: '2 marbles + 1 block = 1 rectangle + 1 block.', scale: { left: ['circle', 'circle', 'square'], right: ['rectangle', 'square'] }, isFact: true }, { caption: 'Remove 1 block from BOTH sides: 2 marbles = 1 rectangle.', scale: { left: ['circle', 'circle'], right: ['rectangle'] } }, { caption: 'The answer is C!' } ] }
+const q19: QuizPuzzle = { id: 'q19', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['square', 'square', 'square', 'circle'], right: ['circle', 'circle'] }, options: [ { id: 'A', scale: { left: ['square', 'square', 'square'], right: ['circle', 'circle'] }, isCorrect: false }, { id: 'B', scale: { left: ['square', 'square'], right: ['circle'] }, isCorrect: false }, { id: 'C', scale: { left: ['square'], right: ['circle'] }, isCorrect: false }, { id: 'D', scale: { left: ['square', 'square', 'square'], right: ['circle'] }, isCorrect: true } ], explanation: [ { caption: '3 blocks + 1 marble = 2 marbles.', scale: { left: ['square', 'square', 'square', 'circle'], right: ['circle', 'circle'] }, isFact: true }, { caption: 'Remove 1 marble from BOTH sides: 3 blocks = 1 marble.', scale: { left: ['square', 'square', 'square'], right: ['circle'] } }, { caption: 'The answer is D!' } ] }
+const q20: QuizPuzzle = { id: 'q20', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'cylinder', 'cylinder'], right: ['cylinder', 'cylinder', 'cylinder', 'triangle'] }, options: [ { id: 'A', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon'], right: ['cylinder', 'triangle'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon'], right: ['triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'cylinder'], right: ['triangle'] }, isCorrect: false } ], explanation: [ { caption: '1 hexagon + 2 cans = 3 cans + 1 cone.', scale: { left: ['hexagon', 'cylinder', 'cylinder'], right: ['cylinder', 'cylinder', 'cylinder', 'triangle'] }, isFact: true }, { caption: 'Remove 2 cans from BOTH sides: 1 hexagon = 1 can + 1 cone.', scale: { left: ['hexagon'], right: ['cylinder', 'triangle'] } }, { caption: 'The answer is B!' } ] }
+const q21: QuizPuzzle = { id: 'q21', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'square'], right: ['hexagon'] }, options: [ { id: 'A', scale: { left: ['square', 'square'], right: ['hexagon'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle', 'square'], right: ['circle'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon', 'square'], right: ['square'] }, isCorrect: false }, { id: 'D', scale: { left: ['square'], right: ['circle'] }, isCorrect: false } ], explanation: [ { caption: '1 hexagon + 1 block = 1 hexagon alone.', scale: { left: ['hexagon', 'square'], right: ['hexagon'] }, isFact: true }, { caption: 'Remove 1 hexagon: block = nothing — block weighs 0!', scale: { left: ['square'], right: [] } }, { caption: 'Adding 0 changes nothing: 1 marble + 1 block = 1 marble.', scale: { left: ['circle', 'square'], right: ['circle'] } }, { caption: 'The answer is B!' } ] }
+const q22: QuizPuzzle = { id: 'q22', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['triangle', 'triangle', 'square'], right: ['triangle', 'square', 'square', 'square'] }, options: [ { id: 'A', scale: { left: ['triangle'], right: ['square'] }, isCorrect: false }, { id: 'B', scale: { left: ['triangle'], right: ['square', 'square'] }, isCorrect: true }, { id: 'C', scale: { left: ['triangle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['triangle', 'triangle'], right: ['square', 'square'] }, isCorrect: false } ], explanation: [ { caption: '2 cones + 1 block = 1 cone + 3 blocks.', scale: { left: ['triangle', 'triangle', 'square'], right: ['triangle', 'square', 'square', 'square'] }, isFact: true }, { caption: 'Remove 1 cone and 1 block from BOTH sides: 1 cone = 2 blocks.', scale: { left: ['triangle'], right: ['square', 'square'] } }, { caption: 'The answer is B!' } ] }
+const q23: QuizPuzzle = { id: 'q23', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle', 'triangle'], right: ['triangle', 'triangle'] }, options: [ { id: 'A', scale: { left: ['circle', 'circle'], right: ['triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle'], right: ['triangle', 'triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['circle', 'circle'], right: ['triangle', 'triangle'] }, isCorrect: true }, { id: 'D', scale: { left: ['circle'], right: ['triangle'] }, isCorrect: false } ], explanation: [ { caption: '1 marble + 1 cone = 2 cones.', scale: { left: ['circle', 'triangle'], right: ['triangle', 'triangle'] }, isFact: true }, { caption: 'Remove 1 cone: marble = cone. DOUBLE: 2 marbles = 2 cones.', scale: { left: ['circle', 'circle'], right: ['triangle', 'triangle'] } }, { caption: 'The answer is C!' } ] }
+const q24: QuizPuzzle = { id: 'q24', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['cylinder', 'square'], right: ['cylinder'] }, options: [ { id: 'A', scale: { left: ['triangle', 'square', 'square', 'square'], right: ['triangle'] }, isCorrect: true }, { id: 'B', scale: { left: ['square', 'square'], right: ['cylinder'] }, isCorrect: false }, { id: 'C', scale: { left: ['square'], right: ['triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['cylinder', 'square'], right: ['square'] }, isCorrect: false } ], explanation: [ { caption: '1 can + 1 block = 1 can → block = 0!', scale: { left: ['cylinder', 'square'], right: ['cylinder'] }, isFact: true }, { caption: 'Any number of blocks = 0. So 1 cone + 3 blocks = 1 cone.', scale: { left: ['triangle', 'square', 'square', 'square'], right: ['triangle'] } }, { caption: 'The answer is A!' } ] }
+const q25: QuizPuzzle = { id: 'q25', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle', 'circle', 'circle', 'triangle', 'triangle'], right: ['circle', 'circle', 'triangle', 'triangle', 'hexagon'] }, options: [ { id: 'A', scale: { left: ['circle'], right: ['triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle'], right: ['hexagon'] }, isCorrect: true }, { id: 'C', scale: { left: ['circle', 'circle'], right: ['hexagon'] }, isCorrect: false }, { id: 'D', scale: { left: ['triangle'], right: ['hexagon'] }, isCorrect: false } ], explanation: [ { caption: '3 marbles + 2 cones = 2 marbles + 2 cones + 1 hex.', scale: { left: ['circle', 'circle', 'circle', 'triangle', 'triangle'], right: ['circle', 'circle', 'triangle', 'triangle', 'hexagon'] }, isFact: true }, { caption: 'Remove 2 marbles and 2 cones: 1 marble = 1 hexagon.', scale: { left: ['circle'], right: ['hexagon'] } }, { caption: 'The answer is B!' } ] }
+const q26: QuizPuzzle = { id: 'q26', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'rectangle', 'circle', 'circle', 'triangle'], right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle', 'circle', 'circle'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['rectangle', 'triangle', 'triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['circle', 'circle', 'triangle', 'triangle', 'triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['hexagon', 'triangle', 'circle', 'circle', 'circle'] }, isCorrect: false } ], explanation: [ { caption: 'hex + rect + 2 marbles + cone = 3 cones + 5 marbles.', scale: { left: ['hexagon', 'rectangle', 'circle', 'circle', 'triangle'], right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle', 'circle', 'circle'] }, isFact: true }, { caption: 'Remove 2 marbles: hex + rect + cone = 3 cones + 3 marbles.', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle'] } }, { caption: 'The answer is B!' } ] }
+const q27: QuizPuzzle = { id: 'q27', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'hexagon', 'circle'], right: ['circle', 'rectangle', 'rectangle'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'hexagon', 'hexagon', 'hexagon'], right: ['rectangle', 'rectangle', 'rectangle', 'rectangle'] }, isCorrect: true }, { id: 'B', scale: { left: ['hexagon', 'hexagon'], right: ['rectangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon'], right: ['rectangle', 'rectangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'hexagon', 'hexagon'], right: ['rectangle', 'rectangle', 'rectangle', 'rectangle'] }, isCorrect: false } ], explanation: [ { caption: '2 hex + marble = marble + 2 rect. Cancel marble: 2 hex = 2 rect.', scale: { left: ['hexagon', 'hexagon', 'circle'], right: ['circle', 'rectangle', 'rectangle'] }, isFact: true }, { caption: 'DOUBLE: 4 hex = 4 rect.', scale: { left: ['hexagon', 'hexagon', 'hexagon', 'hexagon'], right: ['rectangle', 'rectangle', 'rectangle', 'rectangle'] } }, { caption: 'The answer is A!' } ] }
+const q28: QuizPuzzle = { id: 'q28', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['triangle', 'cylinder'], right: ['triangle'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'cylinder', 'cylinder'], right: ['hexagon'] }, isCorrect: true }, { id: 'B', scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon', 'cylinder'], right: ['triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['cylinder'], right: ['hexagon'] }, isCorrect: false } ], explanation: [ { caption: 'cone + can = cone → can = 0!', scale: { left: ['triangle', 'cylinder'], right: ['triangle'] }, isFact: true }, { caption: '2 cans = 0 too. So hex + 2 cans = hex.', scale: { left: ['hexagon', 'cylinder', 'cylinder'], right: ['hexagon'] } }, { caption: 'The answer is A!' } ] }
+const q29: QuizPuzzle = { id: 'q29', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'hexagon', 'square', 'square', 'square', 'triangle'], right: ['hexagon', 'hexagon', 'square', 'rectangle'] }, options: [ { id: 'A', scale: { left: ['square', 'square', 'triangle'], right: ['rectangle'] }, isCorrect: true }, { id: 'B', scale: { left: ['square', 'triangle'], right: ['rectangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['square', 'square', 'square', 'triangle'], right: ['rectangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'triangle'], right: ['rectangle'] }, isCorrect: false } ], explanation: [ { caption: '2 hex + 3 blocks + cone = 2 hex + 1 block + rect.', scale: { left: ['hexagon', 'hexagon', 'square', 'square', 'square', 'triangle'], right: ['hexagon', 'hexagon', 'square', 'rectangle'] }, isFact: true }, { caption: 'Remove 2 hex and 1 block: 2 blocks + cone = rect.', scale: { left: ['square', 'square', 'triangle'], right: ['rectangle'] } }, { caption: 'The answer is A!' } ] }
+const q30: QuizPuzzle = { id: 'q30', kind: 'quiz', prompt: 'The top scale balances. Which answer MUST also balance?', given: { left: ['rectangle', 'cylinder'], right: ['triangle', 'square'] }, options: [ { id: 'A', scale: { left: ['rectangle'], right: ['triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['cylinder'], right: ['square'] }, isCorrect: false }, { id: 'C', scale: { left: ['rectangle', 'cylinder', 'circle'], right: ['triangle', 'square', 'circle'] }, isCorrect: true }, { id: 'D', scale: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'rect + can = cone + block. We cannot simplify further.', scale: { left: ['rectangle', 'cylinder'], right: ['triangle', 'square'] }, isFact: true }, { caption: 'ADD 1 marble to BOTH sides — still balances!', scale: { left: ['rectangle', 'cylinder', 'circle'], right: ['triangle', 'square', 'circle'] } }, { caption: 'The answer is C!' } ] }
+const q31: QuizPuzzle = { id: 'q31', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'square'], right: ['cylinder', 'cylinder'] }, options: [ { id: 'A', scale: { left: ['hexagon'], right: ['cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'hexagon', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['square', 'square'], right: ['cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: '1 hex + 1 block = 2 cans.', scale: { left: ['hexagon', 'square'], right: ['cylinder', 'cylinder'] }, isFact: true }, { caption: 'DOUBLE: 2 hex + 2 blocks = 4 cans.', scale: { left: ['hexagon', 'hexagon', 'square', 'square'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is B!' } ] }
+const q32: QuizPuzzle = { id: 'q32', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle', 'hexagon', 'hexagon'], right: ['circle', 'triangle', 'triangle', 'triangle'] }, options: [ { id: 'A', scale: { left: ['hexagon'], right: ['triangle', 'triangle', 'triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'triangle'] }, isCorrect: true }, { id: 'D', scale: { left: ['hexagon', 'hexagon', 'hexagon'], right: ['triangle', 'triangle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'marble + 2 hex = marble + 3 cones.', scale: { left: ['circle', 'hexagon', 'hexagon'], right: ['circle', 'triangle', 'triangle', 'triangle'] }, isFact: true }, { caption: 'Remove marble: 2 hex = 3 cones.', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'triangle'] } }, { caption: 'The answer is C!' } ] }
+const q33: QuizPuzzle = { id: 'q33', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['rectangle', 'rectangle', 'triangle', 'square'], right: ['rectangle', 'rectangle', 'square', 'square', 'square'] }, options: [ { id: 'A', scale: { left: ['triangle', 'square'], right: ['square', 'square', 'square'] }, isCorrect: true }, { id: 'B', scale: { left: ['triangle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['triangle'], right: ['square'] }, isCorrect: false }, { id: 'D', scale: { left: ['rectangle', 'triangle'], right: ['square', 'square', 'square'] }, isCorrect: false } ], explanation: [ { caption: '2 rect + cone + block = 2 rect + 3 blocks.', scale: { left: ['rectangle', 'rectangle', 'triangle', 'square'], right: ['rectangle', 'rectangle', 'square', 'square', 'square'] }, isFact: true }, { caption: 'Remove 2 rect: cone + block = 3 blocks.', scale: { left: ['triangle', 'square'], right: ['square', 'square', 'square'] } }, { caption: 'The answer is A!' } ] }
+const q34: QuizPuzzle = { id: 'q34', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['rectangle', 'circle', 'circle'], right: ['circle', 'circle', 'circle', 'triangle'] }, options: [ { id: 'A', scale: { left: ['rectangle'], right: ['circle', 'circle', 'triangle'] }, isCorrect: false }, { id: 'B', scale: { left: ['rectangle'], right: ['circle', 'triangle'] }, isCorrect: true }, { id: 'C', scale: { left: ['rectangle'], right: ['triangle', 'triangle'] }, isCorrect: false }, { id: 'D', scale: { left: ['rectangle', 'circle'], right: ['circle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'rect + 2 marbles = 3 marbles + cone.', scale: { left: ['rectangle', 'circle', 'circle'], right: ['circle', 'circle', 'circle', 'triangle'] }, isFact: true }, { caption: 'Remove 2 marbles: rect = marble + cone.', scale: { left: ['rectangle'], right: ['circle', 'triangle'] } }, { caption: 'The answer is B!' } ] }
+const q35: QuizPuzzle = { id: 'q35', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['triangle', 'cylinder', 'square'] }, options: [ { id: 'A', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'cylinder', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'cylinder', 'cylinder', 'square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'cylinder', 'cylinder', 'square', 'square'] }, isCorrect: true }, { id: 'D', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'cylinder', 'square'] }, isCorrect: false } ], explanation: [ { caption: '1 hex = cone + can + block.', scale: { left: ['hexagon'], right: ['triangle', 'cylinder', 'square'] }, isFact: true }, { caption: 'DOUBLE: 2 hex = 2 cones + 2 cans + 2 blocks.', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'cylinder', 'cylinder', 'square', 'square'] } }, { caption: 'The answer is C!' } ] }
 
-// Example image #2 — given marble+block = marble, so a block weighs nothing.
-const quizExample2: QuizPuzzle = {
-  id: 'q-ex2',
-  kind: 'quiz',
-  prompt:
-    'Choose the answer that shows two groups of shapes that, when placed on the scale, would also be of equal weight.',
-  given: { left: ['circle', 'square'], right: ['circle'] },
-  options: [
-    { id: 'A', scale: { left: ['square', 'square'], right: ['circle'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['circle', 'circle', 'circle'], right: ['square', 'square', 'square'] }, isCorrect: false },
-    { id: 'C', scale: { left: ['circle', 'square'], right: ['square'] }, isCorrect: false },
-    {
-      id: 'D',
-      scale: { left: ['circle', 'circle', 'square'], right: ['circle', 'circle'] },
-      isCorrect: true,
-    },
-  ],
-  explanation: [
-    {
-      caption: 'We are told 1 marble and 1 block weigh the same as just 1 marble.',
-      scale: { left: ['circle', 'square'], right: ['circle'] },
-      isFact: true,
-    },
-    {
-      caption: 'Take away 1 marble from BOTH sides. What is left? 1 block weighs the same as nothing — so a block weighs 0!',
-      scale: { left: ['square'], right: [] },
-    },
-    {
-      caption: 'A block weighs nothing, so we can add one to a side without changing the balance: 2 marbles + 1 block = 2 marbles.',
-      scale: { left: ['circle', 'circle', 'square'], right: ['circle', 'circle'] },
-    },
-    { caption: 'The answer is D.' },
-  ],
-}
-
-// Quiz — hexagon + rectangle deduction: subtract a circle from both sides.
-const quizHexRect: QuizPuzzle = {
-  id: 'q-hex-rect',
-  kind: 'quiz',
-  prompt:
-    'The top scale is balanced. Which group below is correct?',
-  given: {
-    left: ['hexagon', 'rectangle', 'circle', 'circle', 'triangle'],
-    right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle', 'circle', 'circle'],
-  },
-  options: [
-    { id: 'A', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['rectangle', 'triangle', 'triangle'] }, isCorrect: false },
-    {
-      id: 'B',
-      scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle'] },
-      isCorrect: true,
-    },
-    { id: 'C', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['circle', 'circle', 'triangle', 'triangle', 'triangle'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['hexagon', 'triangle', 'circle', 'circle', 'circle'] }, isCorrect: false },
-    { id: 'E', scale: { left: ['hexagon', 'rectangle', 'triangle'], right: ['circle', 'circle', 'circle', 'circle', 'circle', 'circle'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know hexagon + rectangle + 2 circles + triangle balances 3 triangles + 5 circles.',
-      scale: {
-        left: ['hexagon', 'rectangle', 'circle', 'circle', 'triangle'],
-        right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle', 'circle', 'circle'],
-      },
-      isFact: true,
-    },
-    {
-      caption: 'Remove 2 circles from BOTH sides. Now hexagon + rectangle + triangle = 3 triangles + 3 circles.',
-      scale: {
-        left: ['hexagon', 'rectangle', 'triangle'],
-        right: ['triangle', 'triangle', 'triangle', 'circle', 'circle', 'circle'],
-      },
-    },
-    { caption: 'The answer is B: 3 triangles and 3 circles!' },
-  ],
-}
-
-// Halving both sides: 4 cyl = 2 tri → half → 2 cyl = 1 tri
-const quizHalf: QuizPuzzle = {
-  id: 'q-half',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] },
-  options: [
-    {
-      id: 'A',
-      scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] },
-      isCorrect: true,
-    },
-    { id: 'B', scale: { left: ['cylinder'], right: ['triangle'] }, isCorrect: false },
-    { id: 'C', scale: { left: ['cylinder', 'cylinder', 'cylinder'], right: ['triangle'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['cylinder', 'cylinder'], right: ['triangle', 'triangle'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 4 cans balance 2 cones.',
-      scale: { left: ['cylinder', 'cylinder', 'cylinder', 'cylinder'], right: ['triangle', 'triangle'] },
-      isFact: true,
-    },
-    {
-      caption: 'If we HALVE both sides, the scale still balances: 2 cans = 1 cone.',
-      scale: { left: ['cylinder', 'cylinder'], right: ['triangle'] },
-    },
-    { caption: 'The answer is A!' },
-  ],
-}
-
-// Doubling: 1 circle = 3 squares → double → 2 circles = 6 squares
-const quizScaleUp: QuizPuzzle = {
-  id: 'q-scale-up',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['circle'], right: ['square', 'square', 'square'] },
-  options: [
-    { id: 'A', scale: { left: ['circle', 'circle'], right: ['square', 'square', 'square'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['circle'], right: ['square', 'square'] }, isCorrect: false },
-    {
-      id: 'C',
-      scale: { left: ['circle', 'circle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] },
-      isCorrect: true,
-    },
-    { id: 'D', scale: { left: ['circle', 'circle', 'circle'], right: ['square', 'square', 'square'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 1 marble balances 3 blocks.',
-      scale: { left: ['circle'], right: ['square', 'square', 'square'] },
-      isFact: true,
-    },
-    {
-      caption: 'If we DOUBLE both sides, the scale still balances: 2 marbles = 6 blocks.',
-      scale: { left: ['circle', 'circle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] },
-    },
-    { caption: 'The answer is C!' },
-  ],
-}
-
-// Add same shape to both sides: 1 tri = 2 cyl → add 1 sq to both sides
-const quizAddBoth: QuizPuzzle = {
-  id: 'q-add-both',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['triangle'], right: ['cylinder', 'cylinder'] },
-  options: [
-    { id: 'A', scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false },
-    {
-      id: 'B',
-      scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'square'] },
-      isCorrect: true,
-    },
-    { id: 'C', scale: { left: ['triangle', 'triangle'], right: ['cylinder', 'cylinder', 'square'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['triangle', 'square'], right: ['cylinder', 'square'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 1 cone balances 2 cans.',
-      scale: { left: ['triangle'], right: ['cylinder', 'cylinder'] },
-      isFact: true,
-    },
-    {
-      caption: 'If we ADD the same thing (1 block) to BOTH sides, the scale still balances.',
-      scale: { left: ['triangle', 'square'], right: ['cylinder', 'cylinder', 'square'] },
-    },
-    { caption: 'The answer is B!' },
-  ],
-}
-
-// Cancel common items: 2 circles + 1 sq = 1 rect + 1 sq → remove sq → 2 circles = 1 rect
-const quizCancel: QuizPuzzle = {
-  id: 'q-cancel',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['circle', 'circle', 'square'], right: ['rectangle', 'square'] },
-  options: [
-    { id: 'A', scale: { left: ['circle'], right: ['rectangle'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['circle', 'circle', 'square'], right: ['rectangle'] }, isCorrect: false },
-    {
-      id: 'C',
-      scale: { left: ['circle', 'circle'], right: ['rectangle'] },
-      isCorrect: true,
-    },
-    { id: 'D', scale: { left: ['circle', 'square'], right: ['rectangle'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 2 marbles + 1 block balance 1 rectangle + 1 block.',
-      scale: { left: ['circle', 'circle', 'square'], right: ['rectangle', 'square'] },
-      isFact: true,
-    },
-    {
-      caption: 'Both sides have 1 block. Remove it from both — the scale still balances: 2 marbles = 1 rectangle.',
-      scale: { left: ['circle', 'circle'], right: ['rectangle'] },
-    },
-    { caption: 'The answer is C!' },
-  ],
-}
-
-// Subtract one item: 3 sq + 1 circle = 2 circles → subtract 1 circle → 3 sq = 1 circle
-const quizSubtractOne: QuizPuzzle = {
-  id: 'q-subtract-one',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['square', 'square', 'square', 'circle'], right: ['circle', 'circle'] },
-  options: [
-    { id: 'A', scale: { left: ['square', 'square', 'square'], right: ['circle', 'circle'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['square', 'square'], right: ['circle'] }, isCorrect: false },
-    { id: 'C', scale: { left: ['square'], right: ['circle'] }, isCorrect: false },
-    {
-      id: 'D',
-      scale: { left: ['square', 'square', 'square'], right: ['circle'] },
-      isCorrect: true,
-    },
-  ],
-  explanation: [
-    {
-      caption: 'We know 3 blocks + 1 marble balance 2 marbles.',
-      scale: { left: ['square', 'square', 'square', 'circle'], right: ['circle', 'circle'] },
-      isFact: true,
-    },
-    {
-      caption: 'Remove 1 marble from BOTH sides. Now 3 blocks = 1 marble.',
-      scale: { left: ['square', 'square', 'square'], right: ['circle'] },
-    },
-    { caption: 'The answer is D!' },
-  ],
-}
-
-// Zero-weight deduction: hex + sq = hex → sq = 0
-const quizZero: QuizPuzzle = {
-  id: 'q-zero',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['hexagon', 'square'], right: ['hexagon'] },
-  options: [
-    { id: 'A', scale: { left: ['square', 'square'], right: ['hexagon'] }, isCorrect: false },
-    {
-      id: 'B',
-      scale: { left: ['circle', 'square'], right: ['circle'] },
-      isCorrect: true,
-    },
-    { id: 'C', scale: { left: ['hexagon', 'square'], right: ['square'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['square'], right: ['circle'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 1 hexagon + 1 block balances 1 hexagon alone.',
-      scale: { left: ['hexagon', 'square'], right: ['hexagon'] },
-      isFact: true,
-    },
-    {
-      caption: 'Remove 1 hexagon from both sides. The block weighs the same as nothing — it weighs 0!',
-      scale: { left: ['square'], right: [] },
-    },
-    {
-      caption: 'Since the block weighs nothing, adding it to a side does not change the balance: 1 marble + 1 block = 1 marble.',
-      scale: { left: ['circle', 'square'], right: ['circle'] },
-    },
-    { caption: 'The answer is B!' },
-  ],
-}
-
-// Double a complex equation: 1 hex = 1 tri + 1 cyl + 1 sq → double both
-const quizCombineDouble: QuizPuzzle = {
-  id: 'q-combine-double',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['hexagon'], right: ['triangle', 'cylinder', 'square'] },
-  options: [
-    { id: 'A', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'cylinder', 'square'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'cylinder', 'cylinder', 'square', 'square'] }, isCorrect: false },
-    {
-      id: 'C',
-      scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'cylinder', 'cylinder', 'square', 'square'] },
-      isCorrect: true,
-    },
-    { id: 'D', scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'cylinder', 'square'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 1 hexagon balances 1 cone + 1 can + 1 block.',
-      scale: { left: ['hexagon'], right: ['triangle', 'cylinder', 'square'] },
-      isFact: true,
-    },
-    {
-      caption: 'DOUBLE both sides: 2 hexagons = 2 cones + 2 cans + 2 blocks.',
-      scale: { left: ['hexagon', 'hexagon'], right: ['triangle', 'triangle', 'cylinder', 'cylinder', 'square', 'square'] },
-    },
-    { caption: 'The answer is C!' },
-  ],
-}
-
-// Complex subtraction: 1 rect + 2 circles = 3 circles + 1 tri → remove 2 circles → 1 rect = 1 circle + 1 tri
-const quizComplexSub: QuizPuzzle = {
-  id: 'q-complex-sub',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['rectangle', 'circle', 'circle'], right: ['circle', 'circle', 'circle', 'triangle'] },
-  options: [
-    { id: 'A', scale: { left: ['rectangle'], right: ['circle', 'circle', 'triangle'] }, isCorrect: false },
-    {
-      id: 'B',
-      scale: { left: ['rectangle'], right: ['circle', 'triangle'] },
-      isCorrect: true,
-    },
-    { id: 'C', scale: { left: ['rectangle'], right: ['triangle', 'triangle'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['rectangle', 'circle'], right: ['circle', 'triangle'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 1 rectangle + 2 marbles balances 3 marbles + 1 cone.',
-      scale: { left: ['rectangle', 'circle', 'circle'], right: ['circle', 'circle', 'circle', 'triangle'] },
-      isFact: true,
-    },
-    {
-      caption: 'Remove 2 marbles from BOTH sides. Now 1 rectangle = 1 marble + 1 cone.',
-      scale: { left: ['rectangle'], right: ['circle', 'triangle'] },
-    },
-    { caption: 'The answer is B!' },
-  ],
-}
-
-// Two-rule substitution: 1 hex = 2 tri; extra: 1 tri = 3 sq → 1 hex = 6 sq
-const quizSubstitute: QuizPuzzle = {
-  id: 'q-substitute',
-  kind: 'quiz',
-  prompt:
-    'BOTH scales below are balanced. Which answer scale ALSO balances for sure?',
-  given: { left: ['hexagon'], right: ['triangle', 'triangle'] },
-  extraFacts: [{ left: ['triangle'], right: ['square', 'square', 'square'] }],
-  options: [
-    { id: 'A', scale: { left: ['hexagon'], right: ['square', 'square', 'square'] }, isCorrect: false },
-    { id: 'B', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square'] }, isCorrect: false },
-    {
-      id: 'C',
-      scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square'] },
-      isCorrect: true,
-    },
-    { id: 'D', scale: { left: ['hexagon'], right: ['triangle', 'square', 'square', 'square'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'Rule 1: 1 hexagon = 2 cones.',
-      scale: { left: ['hexagon'], right: ['triangle', 'triangle'] },
-      isFact: true,
-    },
-    {
-      caption: 'Rule 2: 1 cone = 3 blocks.',
-      scale: { left: ['triangle'], right: ['square', 'square', 'square'] },
-      isFact: true,
-    },
-    {
-      caption: 'Replace each cone with 3 blocks: 1 hexagon = 3 blocks + 3 blocks = 6 blocks!',
-      scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square'] },
-    },
-    { caption: 'The answer is C!' },
-  ],
-}
-
-// Triple scaling: 2 rect = 3 hex → triple → 6 rect = 9 hex
-const quizMultiStep: QuizPuzzle = {
-  id: 'q-multi-step',
-  kind: 'quiz',
-  prompt:
-    'The top scale balances. Which answer scale ALSO balances for sure?',
-  given: { left: ['rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon'] },
-  options: [
-    { id: 'A', scale: { left: ['rectangle', 'rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: true },
-    { id: 'B', scale: { left: ['rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: false },
-    { id: 'C', scale: { left: ['rectangle', 'rectangle', 'rectangle', 'rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: false },
-    { id: 'D', scale: { left: ['rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: false },
-  ],
-  explanation: [
-    {
-      caption: 'We know 2 rectangles balance 3 hexagons.',
-      scale: { left: ['rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon'] },
-      isFact: true,
-    },
-    {
-      caption: 'DOUBLE both sides: 4 rectangles = 6 hexagons.',
-      scale: { left: ['rectangle', 'rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] },
-    },
-    { caption: 'The answer is A!' },
-  ],
-}
+// ===== HARD (q36–q50) =====
+const q36: QuizPuzzle = { id: 'q36', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['circle', 'square'], right: ['circle'] }, options: [ { id: 'A', scale: { left: ['square', 'square'], right: ['circle'] }, isCorrect: false }, { id: 'B', scale: { left: ['circle', 'circle', 'circle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['circle', 'square'], right: ['square'] }, isCorrect: false }, { id: 'D', scale: { left: ['circle', 'circle', 'square'], right: ['circle', 'circle'] }, isCorrect: true } ], explanation: [ { caption: 'marble + block = marble → block = 0!', scale: { left: ['circle', 'square'], right: ['circle'] }, isFact: true }, { caption: '2 marbles + block = 2 marbles.', scale: { left: ['circle', 'circle', 'square'], right: ['circle', 'circle'] } }, { caption: 'The answer is D.' } ] }
+const q37: QuizPuzzle = { id: 'q37', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['triangle', 'triangle'] }, extraFacts: [{ left: ['triangle'], right: ['square', 'square', 'square'] }], options: [ { id: 'A', scale: { left: ['hexagon'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: true }, { id: 'D', scale: { left: ['hexagon'], right: ['triangle', 'square', 'square', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'Rule 1: hex = 2 cones. Rule 2: cone = 3 blocks.', scale: { left: ['hexagon'], right: ['triangle', 'triangle'] }, isFact: true }, { caption: 'Replace each cone: hex = 6 blocks!', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square'] } }, { caption: 'The answer is C!' } ] }
+const q38: QuizPuzzle = { id: 'q38', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['rectangle'], right: ['circle', 'circle'] }, extraFacts: [{ left: ['circle'], right: ['cylinder', 'cylinder'] }], options: [ { id: 'A', scale: { left: ['rectangle'], right: ['cylinder', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['rectangle'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'C', scale: { left: ['rectangle'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'D', scale: { left: ['rectangle'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'Rule 1: rect = 2 marbles. Rule 2: marble = 2 cans.', scale: { left: ['rectangle'], right: ['circle', 'circle'] }, isFact: true }, { caption: 'Replace marbles: rect = 4 cans!', scale: { left: ['rectangle'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is C!' } ] }
+const q39: QuizPuzzle = { id: 'q39', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['square', 'square', 'square'] }, extraFacts: [{ left: ['triangle'], right: ['square', 'square'] }], options: [ { id: 'A', scale: { left: ['hexagon', 'triangle'], right: ['square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon', 'triangle'], right: ['square', 'square', 'square', 'square', 'square'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon', 'triangle'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'triangle'], right: ['square', 'square', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'hex = 3 blocks; cone = 2 blocks.', scale: { left: ['hexagon'], right: ['square', 'square', 'square'] }, isFact: true }, { caption: 'ADD: hex + cone = 5 blocks.', scale: { left: ['hexagon', 'triangle'], right: ['square', 'square', 'square', 'square', 'square'] } }, { caption: 'The answer is B!' } ] }
+const q40: QuizPuzzle = { id: 'q40', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['triangle', 'triangle', 'hexagon'], right: ['hexagon', 'square', 'square', 'square', 'square'] }, options: [ { id: 'A', scale: { left: ['triangle'], right: ['square'] }, isCorrect: false }, { id: 'B', scale: { left: ['triangle'], right: ['square', 'square'] }, isCorrect: true }, { id: 'C', scale: { left: ['triangle'], right: ['square', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['triangle', 'triangle'], right: ['square', 'square'] }, isCorrect: false } ], explanation: [ { caption: '2 cones + hex = hex + 4 blocks. Remove hex: 2 cones = 4 blocks.', scale: { left: ['triangle', 'triangle', 'hexagon'], right: ['hexagon', 'square', 'square', 'square', 'square'] }, isFact: true }, { caption: 'HALVE: 1 cone = 2 blocks.', scale: { left: ['triangle'], right: ['square', 'square'] } }, { caption: 'The answer is B!' } ] }
+const q41: QuizPuzzle = { id: 'q41', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['rectangle', 'rectangle'] }, extraFacts: [{ left: ['rectangle'], right: ['cylinder', 'cylinder', 'cylinder'] }], options: [ { id: 'A', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'B', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon'], right: ['rectangle', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'hex = 2 rect; rect = 3 cans.', scale: { left: ['hexagon'], right: ['rectangle', 'rectangle'] }, isFact: true }, { caption: 'Replace: hex = 6 cans!', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder', 'cylinder'] } }, { caption: 'The answer is A!' } ] }
+const q42: QuizPuzzle = { id: 'q42', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'cylinder'], right: ['rectangle', 'triangle'] }, extraFacts: [{ left: ['cylinder'], right: ['triangle'] }], options: [ { id: 'A', scale: { left: ['hexagon'], right: ['rectangle'] }, isCorrect: true }, { id: 'B', scale: { left: ['hexagon'], right: ['triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon'], right: ['cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'hexagon'], right: ['rectangle'] }, isCorrect: false } ], explanation: [ { caption: 'hex + can = rect + cone; can = cone.', scale: { left: ['hexagon', 'cylinder'], right: ['rectangle', 'triangle'] }, isFact: true }, { caption: 'Replace cone with can: hex + can = rect + can. Cancel: hex = rect!', scale: { left: ['hexagon'], right: ['rectangle'] } }, { caption: 'The answer is A!' } ] }
+const q43: QuizPuzzle = { id: 'q43', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['triangle', 'square'], right: ['triangle'] }, extraFacts: [{ left: ['circle'], right: ['square', 'square', 'square', 'square'] }], options: [ { id: 'A', scale: { left: ['hexagon', 'circle'], right: ['hexagon'] }, isCorrect: true }, { id: 'B', scale: { left: ['circle'], right: ['triangle'] }, isCorrect: false }, { id: 'C', scale: { left: ['circle', 'circle'], right: ['square'] }, isCorrect: false }, { id: 'D', scale: { left: ['circle'], right: ['square'] }, isCorrect: false } ], explanation: [ { caption: 'cone + block = cone → block = 0. marble = 4 blocks = 0 too!', scale: { left: ['triangle', 'square'], right: ['triangle'] }, isFact: true }, { caption: 'hex + marble = hex (adding 0).', scale: { left: ['hexagon', 'circle'], right: ['hexagon'] } }, { caption: 'The answer is A!' } ] }
+const q44: QuizPuzzle = { id: 'q44', kind: 'quiz', prompt: 'ALL three scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['rectangle', 'rectangle'] }, extraFacts: [{ left: ['rectangle'], right: ['triangle', 'triangle'] }, { left: ['triangle'], right: ['square', 'square'] }], options: [ { id: 'A', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: true }, { id: 'D', scale: { left: ['hexagon'], right: ['triangle', 'triangle', 'triangle', 'triangle'] }, isCorrect: false } ], explanation: [ { caption: 'hex = 2 rect = 4 cones = 8 blocks!', scale: { left: ['hexagon'], right: ['rectangle', 'rectangle'] }, isFact: true }, { caption: 'The answer is C!' } ] }
+const q45: QuizPuzzle = { id: 'q45', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder'] }, extraFacts: [{ left: ['circle'], right: ['cylinder', 'cylinder'] }], options: [ { id: 'A', scale: { left: ['hexagon', 'hexagon'], right: ['circle', 'circle', 'circle'] }, isCorrect: true }, { id: 'B', scale: { left: ['hexagon'], right: ['circle', 'circle'] }, isCorrect: false }, { id: 'C', scale: { left: ['hexagon', 'hexagon'], right: ['circle', 'circle'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon'], right: ['circle', 'circle', 'circle'] }, isCorrect: false } ], explanation: [ { caption: 'hex = 3 cans; marble = 2 cans. 2 hex = 6 cans = 3 marbles.', scale: { left: ['hexagon'], right: ['cylinder', 'cylinder', 'cylinder'] }, isFact: true }, { caption: 'The answer is A!' } ] }
+const q46: QuizPuzzle = { id: 'q46', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon', 'triangle'], right: ['rectangle', 'triangle'] }, extraFacts: [{ left: ['hexagon'], right: ['square', 'square', 'square'] }], options: [ { id: 'A', scale: { left: ['rectangle'], right: ['square', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['rectangle'], right: ['square', 'square', 'square'] }, isCorrect: true }, { id: 'C', scale: { left: ['rectangle'], right: ['square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['rectangle'], right: ['hexagon', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'hex + cone = rect + cone → hex = rect. hex = 3 blocks → rect = 3 blocks.', scale: { left: ['hexagon', 'triangle'], right: ['rectangle', 'triangle'] }, isFact: true }, { caption: 'The answer is B!' } ] }
+const q47: QuizPuzzle = { id: 'q47', kind: 'quiz', prompt: 'The top scale balances. Which answer scale ALSO balances for sure?', given: { left: ['rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon'] }, options: [ { id: 'A', scale: { left: ['rectangle', 'rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: true }, { id: 'B', scale: { left: ['rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: false }, { id: 'C', scale: { left: ['rectangle', 'rectangle', 'rectangle', 'rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: false }, { id: 'D', scale: { left: ['rectangle', 'rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon', 'hexagon', 'hexagon'] }, isCorrect: false } ], explanation: [ { caption: '2 rect = 3 hex. DOUBLE: 4 rect = 6 hex.', scale: { left: ['rectangle', 'rectangle'], right: ['hexagon', 'hexagon', 'hexagon'] }, isFact: true }, { caption: 'The answer is A!' } ] }
+const q48: QuizPuzzle = { id: 'q48', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['rectangle', 'triangle'] }, extraFacts: [{ left: ['triangle'], right: ['cylinder', 'cylinder'] }], options: [ { id: 'A', scale: { left: ['hexagon'], right: ['rectangle', 'cylinder'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon'], right: ['rectangle', 'cylinder', 'cylinder'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon'], right: ['rectangle', 'cylinder', 'cylinder', 'cylinder'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon', 'hexagon'], right: ['rectangle', 'cylinder', 'cylinder'] }, isCorrect: false } ], explanation: [ { caption: 'hex = rect + cone; cone = 2 cans → hex = rect + 2 cans.', scale: { left: ['hexagon'], right: ['rectangle', 'triangle'] }, isFact: true }, { caption: 'The answer is B!' } ] }
+const q49: QuizPuzzle = { id: 'q49', kind: 'quiz', prompt: 'BOTH scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['rectangle'], right: ['hexagon', 'square'] }, extraFacts: [{ left: ['hexagon'], right: ['triangle', 'triangle'] }], options: [ { id: 'A', scale: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle', 'triangle', 'triangle', 'square', 'square'] }, isCorrect: true }, { id: 'B', scale: { left: ['rectangle'], right: ['triangle', 'triangle', 'square'] }, isCorrect: false }, { id: 'C', scale: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['rectangle'], right: ['triangle', 'triangle', 'triangle', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'rect = hex + block; hex = 2 cones → rect = 2 cones + block.', scale: { left: ['rectangle'], right: ['hexagon', 'square'] }, isFact: true }, { caption: 'DOUBLE: 2 rect = 4 cones + 2 blocks.', scale: { left: ['rectangle', 'rectangle'], right: ['triangle', 'triangle', 'triangle', 'triangle', 'square', 'square'] } }, { caption: 'The answer is A!' } ] }
+const q50: QuizPuzzle = { id: 'q50', kind: 'quiz', prompt: 'ALL three scales below are balanced. Which answer scale ALSO balances for sure?', given: { left: ['hexagon'], right: ['circle', 'triangle'] }, extraFacts: [{ left: ['circle'], right: ['square', 'square', 'square'] }, { left: ['triangle'], right: ['square', 'square'] }], options: [ { id: 'A', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'B', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square'] }, isCorrect: true }, { id: 'C', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: false }, { id: 'D', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square', 'square', 'square'] }, isCorrect: false } ], explanation: [ { caption: 'hex = marble + cone; marble = 3 blocks; cone = 2 blocks.', scale: { left: ['hexagon'], right: ['circle', 'triangle'] }, isFact: true }, { caption: 'hex = 3 + 2 = 5 blocks!', scale: { left: ['hexagon'], right: ['square', 'square', 'square', 'square', 'square'] } }, { caption: 'The answer is B!' } ] }
 
 // ---------------------------------------------------------------------------
 
 export const DISCOVERY_PUZZLES: DiscoveryPuzzle[] = [discovery1, discovery2]
 
 export const QUIZ_PUZZLES: QuizPuzzle[] = [
-  quizDouble,
-  quizExample1,
-  quizExample2,
-  quizHexRect,
-  quizHalf,
-  quizScaleUp,
-  quizAddBoth,
-  quizCancel,
-  quizSubtractOne,
-  quizZero,
-  quizCombineDouble,
-  quizComplexSub,
-  quizSubstitute,
-  quizMultiStep,
+  q01, q02, q03, q04, q05, q06, q07, q08, q09, q10,
+  q11, q12, q13, q14, q15, q16, q17,
+  q18, q19, q20, q21, q22, q23, q24, q25, q26, q27,
+  q28, q29, q30, q31, q32, q33, q34, q35,
+  q36, q37, q38, q39, q40, q41, q42, q43, q44, q45,
+  q46, q47, q48, q49, q50,
 ]
 
 /** Everything, in suggested play order. */
